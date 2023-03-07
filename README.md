@@ -7,4 +7,8 @@ The paper proposes a new architecture for image recognition, called Vision Trans
 ![image](https://user-images.githubusercontent.com/91833187/223550950-20eca9ea-526a-4bb0-a9b9-758cd05df4a8.png "Vision Transformor (ViT)")
 
 ## Getting Started
-
+1.Clone the repository using the following command:
+```
+git clone https://github.com/seblful/vision-transformer.git
+```
+conda create --name py35 python=3.5
