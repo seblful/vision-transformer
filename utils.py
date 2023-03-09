@@ -72,3 +72,44 @@ def visualize_dataloader_images(dataloader,
                 
     plt.tight_layout()
     plt.show()
+    
+
+def plot_patchified_image(image, patch_size):
+    '''
+    Plots patched image
+    '''
+    # Permuting image
+    image_permuted = image.permute(1, 2, 0)
+    
+    # Setting image size (image always square) and num_patches
+    image_size = image_permuted.shape[0]
+    num_patches = int(image_size / patch_size)
+    
+    # Check if image size is divided without remainder
+    assert image_size % patch_size == 0
+    
+    figs, axs = plt.subplots(nrows=int(image_size / patch_size),
+                            ncols=int(image_size / patch_size),
+                            figsize=(num_patches, num_patches),
+                            sharex=True,
+                            sharey=True)
+    
+    for i, patch_height in enumerate(range(0, image_size, patch_size)):
+        for j, patch_width in enumerate(range(0, image_size, patch_size)):
+            # Plot the permuted image patch (image_permuted -> (Height, Width, Color Channels))
+            axs[i, j].imshow(image_permuted[patch_height:patch_height+patch_size,
+                             patch_width:patch_width+patch_size, :])
+            
+            # Set up label information, remove the ticks for clarity and set labels to outside
+            axs[i, j].set_ylabel(i+1, 
+                                 rotation="horizontal", 
+                                 horizontalalignment="right", 
+                                 verticalalignment="center") 
+            axs[i, j].set_xlabel(j+1) 
+            axs[i, j].set_xticks([])
+            axs[i, j].set_yticks([])
+            axs[i, j].label_outer()
+    
+    # Set a super title
+    figs.suptitle("Patchified image", fontsize=16)
+    plt.show()
