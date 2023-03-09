@@ -3,6 +3,10 @@ import os
 from torch.utils.data import DataLoader, random_split
 from torchvision import datasets, transforms
 
+
+import matplotlib.pyplot as plt
+import torch
+
 def make_dataloaders(data_path, 
                      train_size=0.85,
                      test_size=0.15,
@@ -40,3 +44,31 @@ def make_dataloaders(data_path,
                                 pin_memory=True)
     
     return train_dataloader, test_dataloader, full_dataset.classes, full_dataset.class_to_idx
+
+
+def visualize_dataloader_images(dataloader,
+                                classes=None,
+                                nrows=4,
+                                ncols=4):
+    '''
+    Visualizes random images from DataLoader
+    '''
+    # Taking one batch and one label
+    batch, label = next(iter(dataloader))
+    
+    # Create a nrows*ncols grid of subplots
+    fig, axs = plt.subplots(nrows=nrows, ncols=ncols)
+    
+    # Subplotting
+    for i in range(nrows):
+        for j in range(ncols):
+            random_index = torch.randint(32, size=(1,))[0]
+            image = batch[random_index]
+            axs[i, j].imshow(image.permute(1, 2, 0))
+            axs[i, j].axis('off')
+            
+            if classes is not None:
+                axs[i, j].set_title(classes[label[random_index]])
+                
+    plt.tight_layout()
+    plt.show()
