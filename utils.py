@@ -1,12 +1,12 @@
 
 import os
+import random
+import matplotlib.pyplot as plt
+
+import torch
 from torch.utils.data import DataLoader, random_split
 from torchvision import datasets, transforms
 
-
-import matplotlib.pyplot as plt
-import torch
-import random
 
 def make_dataloaders(data_path, 
                      train_size=0.85,
