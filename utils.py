@@ -6,6 +6,7 @@ from torchvision import datasets, transforms
 
 import matplotlib.pyplot as plt
 import torch
+import random
 
 def make_dataloaders(data_path, 
                      train_size=0.85,
@@ -113,3 +114,23 @@ def plot_patchified_image(image, patch_size):
     # Set a super title
     figs.suptitle("Patchified image", fontsize=16)
     plt.show()
+    
+
+def plot_image_out_of_conv(image, k=5):
+    '''
+    Plots patchified image by a convolutional layer
+    '''
+    # Instantiate k random indexes
+    random_indexes = random.sample(range(0, 758), k=k)
+    
+    figs, axs = plt.subplots(nrows=1, ncols=k)
+    
+    for i, idx in enumerate(random_indexes):
+        # Taking random image and prepare it for plotting
+        random_image = image[:, idx, :, :].squeeze().detach().numpy()
+        # Plotting each subplot
+        axs[i].imshow(random_image)
+        # Deleting labels, ticks
+        axs[i].set(xticklabels=[], yticklabels=[], xticks=[], yticks=[]);
+        
+    
