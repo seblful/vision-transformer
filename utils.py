@@ -134,3 +134,16 @@ def plot_image_out_of_conv(image, k=5):
         axs[i].set(xticklabels=[], yticklabels=[], xticks=[], yticks=[]);
         
     
+import matplotlib.pyplot as plt
+
+def plot_image_out_of_flat(flattened_image):
+    '''
+    Plots flattened feauture map
+    '''
+    # Permute, taking single map and detach image
+    single_flatten_map = flattened_image.permute(0, 2, 1)[:, :, 0].detach().numpy()
+    
+    # Change figsize
+    plt.figure(figsize=(20, 20))
+    plt.imshow(single_flatten_map)
+    plt.axis('off');
