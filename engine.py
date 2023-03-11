@@ -27,12 +27,15 @@ class PatchEmbedding(nn.Module):
         # 4. Create a layer to flatten the patch feature maps into a single dimension
         self.flatten = nn.Flatten(start_dim=2, # only flatten the feature map dimensions into a single vector
                                   end_dim=3)
+        
+        # 5. Define patch_size
+        self.patch_size = patch_size
 
     # 5. Define the forward method 
     def forward(self, x):
         # Create assertion to check that inputs are the correct shape
         image_resolution = x.shape[-1]
-        assert image_resolution % patch_size == 0, f"Input image size must be divisble by patch size, image shape: {image_resolution}, patch size: {patch_size}"
+        assert image_resolution % self.patch_size == 0, f"Input image size must be divisble by patch size, image shape: {image_resolution}, patch size: {patch_size}"
         
         # Perform the forward pass
         x_patched = self.patcher(x)
