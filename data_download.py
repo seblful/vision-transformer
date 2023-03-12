@@ -1,32 +1,79 @@
-
 import os
+import sys
 import pathlib
+import argparse
 import zipfile
 import shutil
 from kaggle.api.kaggle_api_extended import KaggleApi
 
 from tqdm import tqdm
 
-def data_downloader(dataset_key='alessiocorrado99/animals10',
-                    kaggle_username='seblful',
-                    kaggle_api='6757c11d0dc1367e16a1a6b9fab157d1'):
+# Create a parser
+parser = argparse.ArgumentParser(description="Get some hyperparameters.")
+
+# Get an arg for train_sizefolder with data
+parser.add_argument("--data_folder", 
+                     default='data', 
+                     type=str, 
+                     help="the name of folder with data")
+
+# Get an arg dataset_key
+parser.add_argument("--dataset_key", 
+                     default='alessiocorrado99/animals10',
+                     type=str,
+                     help="the dataset key of Kaggle datasets")
+
+# Get an arg for kaggle_username
+parser.add_argument("--kaggle_username", 
+                     type=str, 
+                     help="the Kaggle username")
+
+# Get an arg for train_sizefolder with datakaggle_api
+parser.add_argument("--kaggle_api",
+                     type=str, 
+                     help="the Kagggle api")
+
+# Get our arguments from the parser
+args = parser.parse_args()
+
+# Setup hyperparameters
+DATA_PATH = args.data_folder
+DATASET_KEY = args.dataset_key
+KAGGLE_USERNAME = args.kaggle_username
+KAGGLE_API = args.kaggle_api
+
+
+def data_downloader(dataset_key=DATASET_KEY,
+                    kaggle_username=KAGGLE_USERNAME,
+                    kaggle_api=KAGGLE_API):
     '''
     Downloads data from Kaggle, creates new directories,
     and deletes old files
     '''
-    data_path = pathlib.Path('data')
+    data_path = pathlib.Path(DATA_PATH)
     
     # Check if directory 'data' in repository
     if data_path.is_dir() == False: # change to false
-        os.mkdir('data')
-        print("There are no have directory 'data', creating new one")
+        
         
         # Setting Kaggle environment
-        os.environ['KAGGLE_USERNAME'] = kaggle_username
-        os.environ['KAGGLE_KEY'] = kaggle_api
+        try:
+            os.environ['KAGGLE_USERNAME'] = kaggle_username
+        except TypeError as username_error:
+            sys.exit("You should specify Kaggle username: --kaggle_username <your username>")
+            
+            
+        try:
+            os.environ['KAGGLE_KEY'] = kaggle_api
+        except TypeError as api_error:
+            sys.exit("You should specify Kaggle api: --kaggle_api <your api>")
 
         api = KaggleApi()
         api.authenticate()
+        
+        # Creating folder for data
+        os.mkdir(DATA_PATH)
+        print(f"There are no have directory {DATA_PATH}', creating new one")
         
         with tqdm(total=100) as t:
             # Download data from Kaggle 
@@ -99,4 +146,5 @@ def data_downloader(dataset_key='alessiocorrado99/animals10',
     else:
         print("The repository has directory 'data'")
 
-data_downloader()
+if __name__ == '__main__':
+    data_downloader()
