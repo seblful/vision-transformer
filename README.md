@@ -23,13 +23,15 @@ pip install -r requirements.txt
 
 ## Download data
 To download data you need to run data_download.py.
+
 Example of usage:
 ```
 python data_download.py --kaggle_username <your_username> --kaggle_api <your api>
 ```
 
 ## Train model
-To download datatrain a model you need to run train.py.
+To train a model you need to run train.py.
+
 Example of usage:
 ```
 python train.py --epochs 10 --batch_size 32 --lr 0.001 --train_size 0.85 --test_size 0.15 --data_folder data
