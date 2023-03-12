@@ -9,7 +9,7 @@ The paper proposes a new architecture for image recognition, called Vision Trans
 ## Getting Started
 1. Create virtual environment and activate it, for convenience you can use conda:
 ```
-conda create --name <name_of_enb> python=3.10.9
+conda create --name <name_of_env> python=3.10.9
 conda activate <name_of_env>
 ```
 2. Clone the repository using the following command:
