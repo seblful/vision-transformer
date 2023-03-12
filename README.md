@@ -21,5 +21,19 @@ git clone https://github.com/seblful/vision-transformer.git
 pip install -r requirements.txt
 ```
 
+## Download data
+To download data you need to run data_download.py.
+Example of usage:
+```
+python data_download.py --kaggle_username <your_username> --kaggle_api <your api>
+```
+
+## Train model
+To download datatrain a model you need to run train.py.
+Example of usage:
+```
+python train.py --epochs 10 --batch_size 32 --lr 0.001 --train_size 0.85 --test_size 0.15 --data_folder data
+```
+
 ## References
 * Dosovitskiy, A., Beyer, L., Kolesnikov, A., Weissenborn, D., Zhai, X., Unterthiner, T., ... & Houlsby, N. (2021). An image is worth 16x16 words: Transformers for image recognition at scale. arXiv preprint arXiv:2010.11929.
