@@ -22,7 +22,6 @@ def make_dataloaders(data_path,
     # Creating transformer to transform data
     transformer = transforms.Compose([
         transforms.Resize(size=(224, 224)),
-        transforms.RandomHorizontalFlip(p=0.5),
         transforms.ToTensor()
         ])
     
