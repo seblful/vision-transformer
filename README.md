@@ -26,7 +26,7 @@ To download data you need to run data_download.py.
 
 Example of usage:
 ```
-python data_download.py --kaggle_username <your_username> --kaggle_api <your api>
+python data_download.py --kaggle_username <your_username> --kaggle_api <your_api>
 ```
 
 ## Train model
