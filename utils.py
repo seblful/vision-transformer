@@ -12,7 +12,8 @@ from typing import Dict, List, Tuple
 def make_dataloaders(data_path, 
                      train_size=0.85,
                      test_size=0.15,
-                     batch_size=32):
+                     batch_size=32,
+                     limit_size=False):
     '''
     Creates train and test dataloaders
     '''
@@ -30,6 +31,10 @@ def make_dataloaders(data_path,
                                         transform=transformer)
     train_dataset, test_dataset = random_split(full_dataset, [train_size, test_size])
     
+    # Limit size of datasets
+    if limit_size:
+        train_dataset = torch.utils.data.Subset(train_dataset, list(range(500)))
+        test_dataset = torch.utils.data.Subset(test_dataset, list(range(500)))
 
     # Creating train and test dataloader
     train_dataloader = DataLoader(dataset=train_dataset,
