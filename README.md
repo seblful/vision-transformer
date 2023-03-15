@@ -34,7 +34,15 @@ To train a model you need to run train.py.
 
 Example of usage:
 ```
-python train.py --epochs 10 --batch_size 32 --lr 0.001 --train_size 0.85 --test_size 0.15 --data_folder data
+python train.py --epochs 10 --batch_size 8 --lr 0.001 --train_size 0.85 --test_size 0.15 --data_folder data
+```
+
+## Train feauture extractor
+To train a feauture extractor you need to run 
+
+Example of usage:
+```
+python train_extractor.py --epochs 10 --batch_size 8 --lr 0.001 --train_size 0.85 --test_size 0.15 --data_folder data
 ```
 
 ## References
