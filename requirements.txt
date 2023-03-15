@@ -9,3 +9,4 @@ pandas==1.5.2
 numpy==1.23.5
 matplotlib==3.6.2
 kaggle==1.5.13
+gradio==3.21.0
