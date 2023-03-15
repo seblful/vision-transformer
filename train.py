@@ -60,6 +60,7 @@ BATCH_SIZE = args.batch_size
 TRAIN_SIZE = args.train_size
 TEST_SIZE = args.test_size
 DATA_PATH = pathlib.Path(args.data_folder)
+SAVE_MODEL_PATH = pathlib.Path('models/vit_model.pth')
 
 
 def main():
@@ -71,7 +72,8 @@ def main():
     train_dataloader, test_dataloader, classes, class_to_idx = make_dataloaders(data_path=DATA_PATH,
                                                                                train_size=TRAIN_SIZE,
                                                                                test_size=TEST_SIZE,
-                                                                               batch_size=BATCH_SIZE)
+                                                                               batch_size=BATCH_SIZE,
+                                                                               limit_size=False)
     
     print(f"Length of train_dataloader is {len(train_dataloader)}.\
         \nLength of test_dataloader is {len(test_dataloader)}.")
@@ -97,6 +99,10 @@ def main():
                     loss_fn=loss_fn,
                     epochs=NUM_EPOCHS,
                     device=device)
+    
+    # Save model
+    torch.save(vit.state_dict(), SAVE_MODEL_PATH)
+    print('Model was saved')
 
 if __name__ == '__main__':
     main()
