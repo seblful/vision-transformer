@@ -128,6 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Fodler with data
 data/
 
+# File with apis
 apis.txt
+
+# Trained models
+models/pretrained_vit_model.pth
+models/vit_model.pth
